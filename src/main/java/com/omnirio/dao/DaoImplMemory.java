@@ -32,7 +32,7 @@ public class DaoImplMemory implements DaoInterface{
             array.put(Utilities.accountToJson(account));
         }
 
-        map.put("Accounts", array);
+        map.put("Account", array);
         customResponse.setInfo(map);
         return customResponse;
     }
@@ -45,7 +45,7 @@ public class DaoImplMemory implements DaoInterface{
         customResponse.setSuccess(true);
 
         Map<String, Object> map = new HashMap<>();
-        map.put("Accounts", Utilities.accountToJson(accountID_Accounts.get(accountID)));
+        map.put("Account", Utilities.accountToJson(accountID_Accounts.get(accountID)));
         customResponse.setInfo(map);
         return customResponse;
     }

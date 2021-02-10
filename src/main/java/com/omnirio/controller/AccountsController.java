@@ -72,6 +72,7 @@ public class AccountsController {
 		}
 	}
 
+	// below are going to be tokenized services, means they will not work without a valid token
 	@PutMapping("/account")
 	@ResponseBody
 	public ResponseEntity<String> updateAccount(@RequestBody String body) throws Exception {
@@ -89,6 +90,7 @@ public class AccountsController {
 		}
 	}
 
+	// below are going to be tokenized services, means they will not work without a valid token
 	@RequestMapping(value = "/account/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteAccount(@PathVariable("id") String id) {
 
