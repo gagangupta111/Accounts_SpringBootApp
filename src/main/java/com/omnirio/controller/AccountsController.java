@@ -50,7 +50,7 @@ public class AccountsController {
 		} else {
 			return ResponseEntity.badRequest()
 					.header("message", customResponse.getMessage())
-					.body(customResponse.getMessage());
+					.body(customResponse.getInfoAsJson().toString());
 		}
 
 	}
@@ -72,6 +72,23 @@ public class AccountsController {
 		}
 	}
 
+	@RequestMapping(value = "/user/{id}/accounts", method = RequestMethod.GET)
+	public ResponseEntity<String> getAllUserAccounts(@PathVariable("id") String id) {
+
+		CustomResponse customResponse = mainService.getAllUserAccounts(id);
+
+		if (customResponse.getSuccess()) {
+			return ResponseEntity.ok()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getInfoAsJson().toString());
+		} else {
+			return ResponseEntity.badRequest()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getMessage());
+		}
+
+	}
+
 	// below are going to be tokenized services, means they will not work without a valid token
 	@PutMapping("/account")
 	@ResponseBody
@@ -86,7 +103,7 @@ public class AccountsController {
 		} else {
 			return ResponseEntity.badRequest()
 					.header("message", customResponse.getMessage())
-					.body(customResponse.getMessage());
+					.body(customResponse.getInfoAsJson().toString());
 		}
 	}
 
@@ -103,25 +120,8 @@ public class AccountsController {
 		} else {
 			return ResponseEntity.badRequest()
 					.header("message", customResponse.getMessage())
-					.body(customResponse.getMessage());
+					.body(customResponse.getInfoAsJson().toString());
 		}
 
 	}
-
-    @RequestMapping(value = "/user/{id}/accounts", method = RequestMethod.GET)
-    public ResponseEntity<String> getAllUserAccounts(@PathVariable("id") String id) {
-
-        CustomResponse customResponse = mainService.getAllUserAccounts(id);
-
-        if (customResponse.getSuccess()) {
-            return ResponseEntity.ok()
-                    .header("message", customResponse.getMessage())
-                    .body(customResponse.getInfoAsJson().toString());
-        } else {
-            return ResponseEntity.badRequest()
-                    .header("message", customResponse.getMessage())
-                    .body(customResponse.getMessage());
-        }
-
-    }
 }

@@ -3,6 +3,7 @@ package com.omnirio.dao;
 import com.omnirio.model.Account;
 import com.omnirio.model.CustomResponse;
 import com.omnirio.model.User;
+import com.omnirio.util.Errors;
 import com.omnirio.util.Utilities;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,7 +44,8 @@ public class DaoImplMemory implements DaoInterface{
         Account account = accountID_Accounts.get(accountID);
         if (accountID_Accounts.get(accountID) == null){
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Account Not Found!");
+            customResponse.setMessage(Errors.INVALID_ACCOUNT_ID.getMessage());
+            customResponse.setInfo(Errors.INVALID_ACCOUNT_ID.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
         }
@@ -93,7 +95,8 @@ public class DaoImplMemory implements DaoInterface{
         }
         if (updatedAccount == null){
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Account Not Found!");
+            customResponse.setMessage(Errors.INVALID_ACCOUNT_ID.getMessage());
+            customResponse.setInfo(Errors.INVALID_ACCOUNT_ID.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
         }else {
@@ -114,7 +117,8 @@ public class DaoImplMemory implements DaoInterface{
         Account deleted = accountID_Accounts.get(accountID);
         if (accountID_Accounts.get(accountID) == null){
             CustomResponse customResponse = new CustomResponse();
-            customResponse.setMessage("Account Not Found!");
+            customResponse.setMessage(Errors.INVALID_ACCOUNT_ID.getMessage());
+            customResponse.setInfo(Errors.INVALID_ACCOUNT_ID.AsMap());
             customResponse.setSuccess(false);
             return customResponse;
         }else {
