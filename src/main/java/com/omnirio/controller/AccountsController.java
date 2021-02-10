@@ -1,7 +1,7 @@
 package com.omnirio.controller;
 
 import com.omnirio.model.CustomResponse;
-import com.omnirio.service.UserService;
+import com.omnirio.service.AccountsService;
 import com.omnirio.util.LogUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/omnirio")
-public class UserController {
+public class AccountsController {
 
 	private static Logger logger = LogUtil.getInstance();
 
 	@Autowired
-	private UserService mainService;
+	private AccountsService mainService;
 
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public ResponseEntity<String> getAllUsers() {
