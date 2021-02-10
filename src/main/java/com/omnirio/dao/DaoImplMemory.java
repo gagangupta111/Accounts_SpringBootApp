@@ -40,6 +40,14 @@ public class DaoImplMemory implements DaoInterface{
     @Override
     public CustomResponse getAccount(String accountID) {
 
+        Account account = accountID_Accounts.get(accountID);
+        if (accountID_Accounts.get(accountID) == null){
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Account Not Found!");
+            customResponse.setSuccess(false);
+            return customResponse;
+        }
+
         CustomResponse customResponse = new CustomResponse();
         customResponse.setMessage("All Accounts!");
         customResponse.setSuccess(true);
