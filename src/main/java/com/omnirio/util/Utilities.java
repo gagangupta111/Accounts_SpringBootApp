@@ -1,4 +1,4 @@
-package omnirio.util;
+package com.omnirio.util;
 
 import java.util.UUID;
 

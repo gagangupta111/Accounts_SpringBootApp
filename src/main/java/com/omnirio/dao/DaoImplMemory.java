@@ -1,4 +1,4 @@
-package omnirio.dao;
+package com.omnirio.dao;
 
 import com.omnirio.model.Account;
 import com.omnirio.model.CustomResponse;

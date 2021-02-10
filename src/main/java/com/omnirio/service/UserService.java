@@ -1,4 +1,4 @@
-package omnirio.service;
+package com.omnirio.service;
 
 import com.omnirio.dao.DaoInterface;
 import com.omnirio.model.Account;

@@ -1,4 +1,4 @@
-package omnirio.model;
+package com.omnirio.model;
 
 import org.json.JSONObject;
 

@@ -1,4 +1,4 @@
-package omnirio.controller;
+package com.omnirio.controller;
 
 import com.omnirio.model.CustomResponse;
 import com.omnirio.service.UserService;

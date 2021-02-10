@@ -1,4 +1,4 @@
-package omnirio.util;
+package com.omnirio.util;
 
 import org.apache.log4j.Logger;
 
