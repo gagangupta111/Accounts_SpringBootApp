@@ -40,6 +40,11 @@ public class AccountsService {
         return dao.deleteAccount(accountID);
     }
 
+    public CustomResponse getAllUserAccounts(String id){
+
+        return dao.getUserAllAccounts(id);
+    }
+
 
 
 }

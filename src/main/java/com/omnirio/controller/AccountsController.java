@@ -107,4 +107,22 @@ public class AccountsController {
 		}
 
 	}
+
+    // below are going to be tokenized services, means they will not work without a valid token
+    @RequestMapping(value = "/user/{id}/accounts", method = RequestMethod.GET)
+    public ResponseEntity<String> getAllUserAccounts(@PathVariable("id") String id) {
+
+        CustomResponse customResponse = mainService.getAllUserAccounts(id);
+
+        if (customResponse.getSuccess()) {
+            return ResponseEntity.ok()
+                    .header("message", customResponse.getMessage())
+                    .body(customResponse.getInfoAsJson().toString());
+        } else {
+            return ResponseEntity.badRequest()
+                    .header("message", customResponse.getMessage())
+                    .body(customResponse.getMessage());
+        }
+
+    }
 }

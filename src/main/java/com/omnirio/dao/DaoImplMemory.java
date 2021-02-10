@@ -129,4 +129,22 @@ public class DaoImplMemory implements DaoInterface{
             return customResponse;
         }
     }
+
+    public CustomResponse getUserAllAccounts(String userID){
+
+        JSONArray jsonArray = new JSONArray();
+        for (Account account : accountID_Accounts.values()){
+            jsonArray.put(Utilities.accountToJson(account));
+        }
+
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setMessage("Account Found!");
+        customResponse.setSuccess(true);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("Account", jsonArray);
+        customResponse.setInfo(map);
+        return customResponse;
+
+    }
 }
