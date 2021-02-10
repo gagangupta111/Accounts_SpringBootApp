@@ -134,7 +134,9 @@ public class DaoImplMemory implements DaoInterface{
 
         JSONArray jsonArray = new JSONArray();
         for (Account account : accountID_Accounts.values()){
-            jsonArray.put(Utilities.accountToJson(account));
+            if (account.getCustomerID() != null && account.getCustomerID().equalsIgnoreCase(userID)){
+                jsonArray.put(Utilities.accountToJson(account));
+            }
         }
 
         CustomResponse customResponse = new CustomResponse();

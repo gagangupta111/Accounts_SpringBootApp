@@ -108,7 +108,6 @@ public class AccountsController {
 
 	}
 
-    // below are going to be tokenized services, means they will not work without a valid token
     @RequestMapping(value = "/user/{id}/accounts", method = RequestMethod.GET)
     public ResponseEntity<String> getAllUserAccounts(@PathVariable("id") String id) {
 
