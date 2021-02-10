@@ -15,64 +15,21 @@ public class AccountsService {
     @Qualifier("InMemory")
     private DaoInterface dao;
 
-    public CustomResponse getAllUsers(){
-
-        return dao.getAllUsers();
-
-    }
-
-    CustomResponse getUser(String userID){
-
-        return dao.getUser(userID);
-
-    }
-
-    CustomResponse createUser(User user){
-
-        return dao.createUser(user);
-
-    }
-
-    CustomResponse getAllAccounts(){
+    public CustomResponse getAllAccounts(){
 
         return dao.getAllAccounts();
     }
 
-    CustomResponse getAccount(String accountID){
+    public CustomResponse getAccount(String accountID){
 
         return dao.getAccount(accountID);
     }
 
-    CustomResponse createAccount(Account account){
+    public CustomResponse createAccount(Account account){
 
         return dao.createAccount(account);
     }
 
-    CustomResponse userUpdateUser(String userID, User user){
-
-        return dao.userUpdateUser(userID, user);
-    }
-
-    CustomResponse userDeleteUser(String userID){
-
-        return dao.userDeleteUser(userID);
-    }
-
-    CustomResponse userUpdateAccount(String accountID, Account account){
-
-        return dao.userUpdateAccount(accountID, account);
-    }
-
-
-    CustomResponse userDeleteAccount(String accountID){
-
-        return dao.userDeleteAccount(accountID);
-    }
-
-    CustomResponse getUserAllAccounts(String userID){
-
-        return dao.getUserAllAccounts(userID);
-    }
 
 
 

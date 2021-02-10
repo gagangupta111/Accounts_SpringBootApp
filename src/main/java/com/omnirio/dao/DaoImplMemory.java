@@ -4,6 +4,7 @@ import com.omnirio.model.Account;
 import com.omnirio.model.CustomResponse;
 import com.omnirio.model.User;
 import com.omnirio.util.Utilities;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
@@ -20,68 +21,49 @@ public class DaoImplMemory implements DaoInterface{
     Map<String, Account> accountID_Accounts = new HashMap<>();
 
     @Override
-    public CustomResponse getAllUsers() {
+    public CustomResponse getAllAccounts() {
 
         CustomResponse customResponse = new CustomResponse();
-        customResponse.setMessage("All users!");
+        customResponse.setMessage("All Accounts!");
         customResponse.setSuccess(true);
 
         Map<String, Object> map = new HashMap<>();
-        map.put("Users", userID_Users.values());
+
+        JSONArray array = new JSONArray();
+        for (Account account : accountID_Accounts.values()){
+            array.put(Utilities.accountToJson(account));
+        }
+
+        map.put("Accounts", array);
         customResponse.setInfo(map);
         return customResponse;
     }
 
     @Override
-    public CustomResponse getUser(String userID) {
-        return null;
-    }
-
-    @Override
-    public CustomResponse createUser(User user) {
-
-        user.setUserID(Utilities.generateUniqueID());
-        userID_Users.put(user.getUserID(), user);
-        return null;
-    }
-
-    @Override
-    public CustomResponse getAllAccounts() {
-        return null;
-    }
-
-    @Override
     public CustomResponse getAccount(String accountID) {
-        return null;
+
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setMessage("All Accounts!");
+        customResponse.setSuccess(true);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("Accounts", Utilities.accountToJson(accountID_Accounts.get(accountID)));
+        customResponse.setInfo(map);
+        return customResponse;
     }
 
     @Override
     public CustomResponse createAccount(Account account) {
-        return null;
-    }
+        account.setAccountID(Utilities.generateUniqueID());
+        accountID_Accounts.put(account.getAccountID(), account);
 
-    @Override
-    public CustomResponse userUpdateUser(String userID, User user) {
-        return null;
-    }
+        CustomResponse customResponse = new CustomResponse();
+        customResponse.setMessage("Account Created!");
+        customResponse.setSuccess(true);
 
-    @Override
-    public CustomResponse userDeleteUser(String userID) {
-        return null;
-    }
-
-    @Override
-    public CustomResponse userUpdateAccount(String accountID, Account account) {
-        return null;
-    }
-
-    @Override
-    public CustomResponse userDeleteAccount(String accountID) {
-        return null;
-    }
-
-    @Override
-    public CustomResponse getUserAllAccounts(String userID) {
-        return null;
+        Map<String, Object> map = new HashMap<>();
+        map.put("Account", Utilities.accountToJson(account));
+        customResponse.setInfo(map);
+        return customResponse;
     }
 }

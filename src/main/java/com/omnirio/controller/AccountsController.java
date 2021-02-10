@@ -1,15 +1,15 @@
 package com.omnirio.controller;
 
+import com.omnirio.model.Account;
 import com.omnirio.model.CustomResponse;
 import com.omnirio.service.AccountsService;
 import com.omnirio.util.LogUtil;
+import com.omnirio.util.Utilities;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/omnirio")
@@ -20,10 +20,10 @@ public class AccountsController {
 	@Autowired
 	private AccountsService mainService;
 
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public ResponseEntity<String> getAllUsers() {
+	@RequestMapping(value = "/account", method = RequestMethod.GET)
+	public ResponseEntity<String> getAllAccounts() {
 
-		CustomResponse customResponse = mainService.getAllUsers();
+		CustomResponse customResponse = mainService.getAllAccounts();
 
 		if (customResponse.getSuccess()) {
 			return ResponseEntity.ok()
@@ -37,11 +37,11 @@ public class AccountsController {
 
 	}
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/account/{id}", method = RequestMethod.GET)
 	public ResponseEntity<String> testJson(@PathVariable("id") String id) {
 
 
-		CustomResponse customResponse = mainService.getAllUsers();
+		CustomResponse customResponse = mainService.getAccount(id);
 
 		if (customResponse.getSuccess()) {
 			return ResponseEntity.ok()
@@ -53,6 +53,23 @@ public class AccountsController {
 					.body(customResponse.getMessage());
 		}
 
+	}
+
+	@PostMapping("/account")
+	@ResponseBody
+	public ResponseEntity<String> createAccount(@RequestBody String body) throws Exception {
+
+		JSONObject jsonObject = new JSONObject(body.trim());
+		CustomResponse customResponse = mainService.createAccount(Utilities.jsonToAccount(jsonObject));
+		if (customResponse.getSuccess()) {
+			return ResponseEntity.ok()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getInfoAsJson().toString());
+		} else {
+			return ResponseEntity.badRequest()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getMessage());
+		}
 	}
 
 }
