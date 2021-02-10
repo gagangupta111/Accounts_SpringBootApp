@@ -38,7 +38,7 @@ public class AccountsController {
 	}
 
 	@RequestMapping(value = "/account/{id}", method = RequestMethod.GET)
-	public ResponseEntity<String> testJson(@PathVariable("id") String id) {
+	public ResponseEntity<String> getAccount(@PathVariable("id") String id) {
 
 
 		CustomResponse customResponse = mainService.getAccount(id);
@@ -72,4 +72,37 @@ public class AccountsController {
 		}
 	}
 
+	@PutMapping("/account")
+	@ResponseBody
+	public ResponseEntity<String> updateAccount(@RequestBody String body) throws Exception {
+
+		JSONObject jsonObject = new JSONObject(body.trim());
+		CustomResponse customResponse = mainService.updateAccount(Utilities.jsonToAccount(jsonObject));
+		if (customResponse.getSuccess()) {
+			return ResponseEntity.ok()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getInfoAsJson().toString());
+		} else {
+			return ResponseEntity.badRequest()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/account/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteAccount(@PathVariable("id") String id) {
+
+		CustomResponse customResponse = mainService.deleteAccount(id);
+
+		if (customResponse.getSuccess()) {
+			return ResponseEntity.ok()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getInfoAsJson().toString());
+		} else {
+			return ResponseEntity.badRequest()
+					.header("message", customResponse.getMessage())
+					.body(customResponse.getMessage());
+		}
+
+	}
 }

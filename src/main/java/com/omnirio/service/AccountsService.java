@@ -30,6 +30,15 @@ public class AccountsService {
         return dao.createAccount(account);
     }
 
+    public CustomResponse updateAccount(Account account){
+
+        return dao.updateAccount(account);
+    }
+
+    public CustomResponse deleteAccount(String accountID){
+
+        return dao.deleteAccount(accountID);
+    }
 
 
 

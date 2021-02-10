@@ -16,8 +16,6 @@ import java.util.Map;
 @Qualifier("InMemory")
 public class DaoImplMemory implements DaoInterface{
 
-    Map<String, User> userID_Users = new HashMap<>();
-    Map<String, List<Account>> userID_Accounts = new HashMap<>();
     Map<String, Account> accountID_Accounts = new HashMap<>();
 
     @Override
@@ -65,5 +63,62 @@ public class DaoImplMemory implements DaoInterface{
         map.put("Account", Utilities.accountToJson(account));
         customResponse.setInfo(map);
         return customResponse;
+    }
+
+    @Override
+    public CustomResponse updateAccount(Account account) {
+
+        Account updatedAccount = null;
+
+        for (Account loopAccount : accountID_Accounts.values()){
+            if (loopAccount.getAccountID().equalsIgnoreCase(account.getAccountID())){
+
+                loopAccount.setAccountID(account.getAccountID());
+                loopAccount.setOpenDate(account.getOpenDate());
+                loopAccount.setFlagAge(account.getFlagAge());
+                loopAccount.setCustomerID(account.getCustomerID());
+                loopAccount.setBranch(account.getBranch());
+                loopAccount.setAccountType(account.getAccountType());
+                updatedAccount = loopAccount;
+                break;
+            }
+        }
+        if (updatedAccount == null){
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Account Not Found!");
+            customResponse.setSuccess(false);
+            return customResponse;
+        }else {
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Account Updated!");
+            customResponse.setSuccess(true);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("Account", Utilities.accountToJson(updatedAccount));
+            customResponse.setInfo(map);
+            return customResponse;
+        }
+    }
+
+    @Override
+    public CustomResponse deleteAccount(String accountID) {
+
+        Account deleted = accountID_Accounts.get(accountID);
+        if (accountID_Accounts.get(accountID) == null){
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Account Not Found!");
+            customResponse.setSuccess(false);
+            return customResponse;
+        }else {
+            accountID_Accounts.remove(accountID);
+            CustomResponse customResponse = new CustomResponse();
+            customResponse.setMessage("Account Deleted!");
+            customResponse.setSuccess(true);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("Account", Utilities.accountToJson(deleted));
+            customResponse.setInfo(map);
+            return customResponse;
+        }
     }
 }

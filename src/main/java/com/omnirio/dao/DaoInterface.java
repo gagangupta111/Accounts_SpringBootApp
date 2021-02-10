@@ -11,4 +11,8 @@ public interface DaoInterface {
     CustomResponse getAccount(String accountID);
     CustomResponse createAccount(Account account);
 
+    CustomResponse updateAccount(Account account);
+    CustomResponse deleteAccount(String accountID);
+
+
 }
