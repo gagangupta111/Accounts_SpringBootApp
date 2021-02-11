@@ -3,14 +3,16 @@ package com.omnirio.dao;
 import com.omnirio.model.Account;
 import com.omnirio.model.CustomResponse;
 import com.omnirio.model.User;
+import com.omnirio.util.Constants;
 import com.omnirio.util.Errors;
 import com.omnirio.util.Utilities;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -62,6 +64,59 @@ public class DaoImplMemory implements DaoInterface{
 
     @Override
     public CustomResponse createAccount(Account account) {
+
+        if (account.getAccountType() == null){
+            account.setAccountType(Constants.DEFAULT);
+        }
+
+        account.setFlagAge(Constants.DEFAULT);
+        if (account.getCustomerID() == null){
+            User user = new User();
+            user.setBranch(account.getBranch());
+            User returnedUser = Utilities.createDefaultUser(user);
+            if (returnedUser != null){
+                account.setCustomerID(returnedUser.getUserID());
+            }
+        }else {
+            User user = Utilities.getUser(account.getCustomerID());
+            if (account.getBranch() == null){
+                account.setBranch(user.getBranch());
+            }
+            if (user.getDob() != null){
+                SimpleDateFormat sdf
+                        = new SimpleDateFormat(
+                        "dd/MM/yyyy");
+
+                try {
+
+                    Date d1 = sdf.parse(user.getDob());
+                    Date d2 = sdf.parse(Utilities.getCurrentDate());
+                    long difference_In_Time
+                            = d2.getTime() - d1.getTime();
+                    long difference_In_Years
+                            = (difference_In_Time
+                            / (1000l * 60 * 60 * 24 * 365));
+                    if (difference_In_Years >= 18){
+                        account.setFlagAge("Y");
+                    }else {
+                        account.setFlagAge("N");
+                    }
+                }catch (Exception e){
+
+                }
+            }
+        }
+
+        if (account.getBranch() == null){
+            account.setBranch(Constants.DEFAULT);
+        }
+
+        try {
+            account.setOpenDate(Utilities.getCurrentDate());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         account.setAccountID(Utilities.generateUniqueID());
         accountID_Accounts.put(account.getAccountID(), account);
 

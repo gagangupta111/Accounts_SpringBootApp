@@ -9,7 +9,7 @@ public class User {
     private String dob;
     private String gender;
     private String phoneNumber;
-    private String roleID;
+    private String roleName;
     private String branch;
 
     public String getUserID() {
@@ -52,12 +52,12 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getRoleID() {
-        return roleID;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRoleID(String roleID) {
-        this.roleID = roleID;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public String getBranch() {
@@ -78,14 +78,14 @@ public class User {
                 Objects.equals(dob, user.dob) &&
                 Objects.equals(gender, user.gender) &&
                 Objects.equals(phoneNumber, user.phoneNumber) &&
-                Objects.equals(roleID, user.roleID) &&
+                Objects.equals(roleName, user.roleName) &&
                 Objects.equals(branch, user.branch);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(userID, userName, dob, gender, phoneNumber, roleID, branch);
+        return Objects.hash(userID, userName, dob, gender, phoneNumber, roleName, branch);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class User {
                 ", dob='" + dob + '\'' +
                 ", gender='" + gender + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", roleID='" + roleID + '\'' +
+                ", roleName='" + roleName + '\'' +
                 ", branch='" + branch + '\'' +
                 '}';
     }
