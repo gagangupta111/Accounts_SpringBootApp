@@ -8,7 +8,6 @@ import java.util.Map;
 
 public enum Errors {
 
-    INVALID_USER_ID(404, "INVALID_USER_ID", ""),
     INVALID_ACCOUNT_ID(405, "INVALID_ACCOUNT_ID", "");
 
     private int code;
