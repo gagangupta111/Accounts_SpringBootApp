@@ -22,7 +22,7 @@ import java.util.UUID;
 
 public class Utilities {
 
-    public static final String USER_URL = "http://localhost:8082/omnirio/user";
+    public static final String USER_URL = "https://userrolespringbootapp.herokuapp.com/omnirio/user";
 
     public static String getCurrentDate(){
         Date date = new Date();
